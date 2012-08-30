@@ -1,5 +1,6 @@
 package croxit;
 import croxit.core.Loader;
+import croxit.core.Errors;
 
 /**
  *  This is the main Croxit manager, and is used to manipulate the main WebView context.

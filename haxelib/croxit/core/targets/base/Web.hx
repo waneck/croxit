@@ -1,12 +1,12 @@
 package croxit.core.targets.base;
+import croxit.core.Loader;
+import croxit.utils.Path;
 import haxe.io.Bytes;
-import neko.vm.Loader;
 #if neko
 import neko.Sys;
 #else
 import cpp.Sys;
 #end
-import croxit.utils.Path;
 
 
 class Web 

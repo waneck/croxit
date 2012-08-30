@@ -1082,6 +1082,6 @@ extern "C"
 {
 	
 	
-	int nekogap_register_prims() { return 0; }
+	int croxit_register_prims() { return 0; }
 	
 }
