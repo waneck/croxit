@@ -1,8 +1,13 @@
-* text=auto
+* binary
 
 *.mm text
 *.h text
 *.md text
 *.hx text
+*.txt text
+*.nmml text
+*.hxml text
+*.xml text
+*.bat text
 
 * text eol=lf

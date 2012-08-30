@@ -10,7 +10,9 @@
 <set name="tool" value="exe" unless="iphone"/>
 <set name="tool" value="static" if="iphone"/>
 
-<set name="LIBEXTRA" value=".iphoneos" if="iphoneos"/>
+<set name="IOS_ARCH" value="-v7" if="HXCPP_ARMV7" />
+
+<set name="LIBEXTRA" value=".iphoneos${IOS_ARCH}" if="iphoneos"/>
 <set name="LIBEXTRA" value=".iphonesim" if="iphonesim"/>
 <set name="LIBPREFIX" value="lib" if="iphoneos"/>
 <set name="LIBPREFIX" value="lib" if="iphonesim"/>
