@@ -1,4 +1,4 @@
-package croxit.js.remoting;
+package croxit.remoting;
 import haxe.Unserializer;
 import haxe.Serializer;
 import haxe.remoting.Context;
@@ -58,7 +58,7 @@ class AsyncConnection implements haxe.remoting.AsyncConnection, implements Dynam
 		s.serialize(params);
 		try
 		{
-			croxit.Client.send('cxconnect', s.toString(), onResult);
+			croxit.js.Client.send('cxconnect', s.toString(), onResult);
 		}
 		catch(e:Dynamic) { trace("error on " + e); }
 	}

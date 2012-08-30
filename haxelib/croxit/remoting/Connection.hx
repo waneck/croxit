@@ -87,7 +87,7 @@ class Connection implements haxe.remoting.Connection
 		}
 		
 		if (id != null && id >= 0)
-			Croxit.callJS('croxit.Client.doCall(' + id + ', "' + StringTools.replace(s.toString(), "'", "\\'") + '");');
+			Croxit.callJS('croxit.js.Client.doCall(' + id + ', "' + StringTools.replace(s.toString(), "'", "\\'") + '");');
 	}
 }
 
