@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+
+  <app
+     file="Croxit Test 1"
+     title="Croxit Test 1"
+     package="com.comtacti.croxit.Test1"
+     version="1.0"
+     company="Comtacti" 
+	 main="Main"
+  />
+
+  <window
+      width="1024"
+		height="768"
+		orientation="landscape"
+		fps="60"
+		background="0xffffff"
+      resizeable="true"
+		hardware="true"
+	/>
+
+  <assets path="template" rename="" include="*" type="template" />
+  <classpath name="." />
+  
+  <haxelib name="croxit-1" />
+  <ndll name="std" />
+  <ndll name="regexp" />
+  <ndll name="zlib" />
+  <ndll name="croxit" haxelib="croxit-1" />
+  
+</project>
