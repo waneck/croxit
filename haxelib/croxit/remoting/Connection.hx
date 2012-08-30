@@ -44,12 +44,12 @@ class Connection implements haxe.remoting.Connection
 		return c;
 	}
 	
-	public static function connect():Connection
+	public static function connect():haxe.remoting.Connection
 	{
 		return new Connection([]);
 	}
 	
-	public static function addObject(name:String, obj:Dynamic, ?rec):Void
+	public static function addObject(name:String, obj:Dynamic, rec:Bool=false):Void
 	{
 		__ctx.addObject(name, obj, rec);
 	}
