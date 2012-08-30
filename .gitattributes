@@ -1,0 +1,8 @@
+* text=auto
+
+*.mm text
+*.h text
+*.md text
+*.hx text
+
+* text eol=lf

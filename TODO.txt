@@ -1,0 +1,4 @@
+	* refactor code to use croxit namespace
+	* clearly separate js api
+	* support for writable path querying
+	* add a 

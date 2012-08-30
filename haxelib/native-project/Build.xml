@@ -1,0 +1,65 @@
+<xml>
+
+<include name="${HXCPP}/build-tool/BuildCommon.xml"/>
+
+<set name="mobile" value="1" if="iphone"/>
+<set name="mobile" value="1" if="android"/>
+<set name="mobile" value="1" if="webos"/>
+<set name="mobile" value="1" if="gph"/>
+
+<set name="tool" value="exe" unless="iphone"/>
+<set name="tool" value="static" if="iphone"/>
+
+<set name="LIBEXTRA" value=".iphoneos" if="iphoneos"/>
+<set name="LIBEXTRA" value=".iphonesim" if="iphonesim"/>
+<set name="LIBPREFIX" value="lib" if="iphoneos"/>
+<set name="LIBPREFIX" value="lib" if="iphonesim"/>
+
+<files id="ios_croxit" dir="./">
+	<file name="native/iPhone/croxit.mm"/>
+</files>
+
+<files id="ios_croxit_nme" dir="./">
+	<compilerflag value="-I/usr/lib/haxe/lib/nme/3,2,0/project/include"/>
+	<file name="native/iPhone/croxit_nme.mm"/>
+</files>
+
+<files id="ios_croxit_geo" dir="./">
+	<file name="native/iPhone/croxit_geo.mm"/>
+</files>
+
+<files id="ios_croxit_display" dir="./">
+	<file name="native/iPhone/croxit_display.mm"/>
+</files>
+
+<target id="croxit" output="${LIBPREFIX}croxit${DBG}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
+  <ext value=".ndll" unless="mobile"/>
+  <files id="ios_croxit" if="iphone"/>
+  <outdir name="../ndll/${BINDIR}"/>
+</target>
+
+<target id="croxit_nme" output="${LIBPREFIX}croxit_nme${DBG}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
+	<ext value=".ndll" unless="mobile"/>
+	<files id="ios_croxit_nme" if="iphone"/>
+	<outdir name="../ndll/${BINDIR}"/>
+</target>
+
+<target id="croxit_geo" output="${LIBPREFIX}croxit_geo${DBG}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
+	<ext value=".ndll" unless="mobile"/>
+	<files id="ios_croxit_geo" if="iphone"/>
+	<outdir name="../ndll/${BINDIR}"/>
+</target>
+
+<target id="croxit_display" output="${LIBPREFIX}croxit_display${DBG}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
+	<ext value=".ndll" unless="mobile"/>
+	<files id="ios_croxit_display" if="iphone"/>
+	<outdir name="../ndll/${BINDIR}"/>
+</target>
+
+<target id="default"> 
+	<target id="croxit" />  
+	<target id="croxit_nme" /> 
+	<target id="croxit_geo" /> 
+	<target id="croxit_display" /> 
+</target>
+</xml>
