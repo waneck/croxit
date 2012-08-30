@@ -15,7 +15,7 @@ class Main
 	{
 		//for mobile, we need to request a writable location, since
 		//the assets folder is sometimes read-only
-		var basePath = #if cpp croxit.system.getWritablePath(AppData) #else Web.getCwd() #end;
+		var basePath = #if cpp croxit.system.Info.getWritablePath(AppData) #else Web.getCwd() #end;
 		
 		var path = basePath + "/db.db3";
 		
