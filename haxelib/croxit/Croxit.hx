@@ -1,6 +1,9 @@
 package croxit;
 import croxit.core.Loader;
 
+/**
+ *  This is the main Croxit manager, and is used to manipulate the main WebView context.
+ **/
 class Croxit 
 {
 	public static var OrientationPortrait = 1;
@@ -18,46 +21,75 @@ class Croxit
 		return shouldRotateInterface = v;
 	}
 	
+	/**
+	 *  Only initializes a webview, without setting a request handler nor a home page
+	 **/
 	public static function init():Void
 	{
 		_init();
 	}
 	
+	/**
+	 *  Initializes and starts with the home page passed as a parameter.
+	 *  The request handler is the main function to be called each time a request to a non-existing 
+	 **/
 	public static function initAndStart(homePage:String, requestHandler:Void->Void):Void
 	{
 		_init_and_start(homePage, requestHandler);
 	}
 	
+	/**
+	 *  Starts the webview with the home page and request handler passed as paremeters
+	 **/
 	public static function start(homePage:String, requestHandler:Void->Void)
 	{
 		_start(homePage, requestHandler);
 	}
 	
+	/**
+	 *  Hides the main webview
+	 **/
 	public static function hide():Void
 	{
 		_hide();
 	}
 	
+	/**
+	 *  Shows the main webview
+	 **/
 	public static function show():Void
 	{
 		_show();
 	}
 	
+	/**
+	 *  Closes the main webview
+	 **/
 	public static function close():Void
 	{
 		_close();
 	}
 	
+	/**
+	 *  Sets a handler for any webview-related errors
+	 **/
 	public static function setErrorHandler(errorHandler:Error->String->Void)
 	{
 		_setErrorHandler(function(num, msg) errorHandler(Type.createEnumIndex(Error, num), msg));
 	}
 	
+	/**
+	 *  Sets if the web view should allow external (non-local) addresses
+	 **/
 	public static function setAllowExternal(v:Bool):Void
 	{
 		_set_allow_external(v);
 	}
 	
+	/**
+	 *  Calls a JavaScript string inside the main webview.
+	 *  This is only guaranteed to work after the request is complete (e.g. inside an event / remoting handler)
+	 **/
 	public static function callJS(js:String):String
 	{
 		return _call_js(js);

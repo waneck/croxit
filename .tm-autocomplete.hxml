@@ -1,0 +1,9 @@
+-cp ./
+-cp haxelib
+-cpp bin/ngap
+-main Main
+-D iphone
+-D iphoneos
+-D nekogap
+-lib hsl-pico-1
+-debug

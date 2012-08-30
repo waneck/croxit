@@ -1,5 +1,8 @@
 package croxit.utils;
 
+/**
+ *  Path utilities
+ **/
 class Path 
 {
 	private var _dirs:Array<String>;

@@ -1,4 +1,4 @@
-package croxit.core.platforms.base;
+package croxit.core.targets.base;
 import haxe.io.Bytes;
 import neko.vm.Loader;
 #if neko
@@ -248,7 +248,7 @@ class Web
 		#end
 	}
 	
-	public static function nekogap_print(str:String)
+	public static function print(str:String)
 	{
 		_print(str);
 	}
