@@ -1,0 +1,2 @@
+This is an example where we already created the 'www' folder reference into the .xcodeproj (see inside 'template' folder - the Test2.xcodeproj folder)
+Normally you will have to create a template yourself, which is the subject of the next example.

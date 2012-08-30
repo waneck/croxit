@@ -2,9 +2,9 @@
 <project>
 
   <app
-     file="Test1"
-     title="Croxit Test 1"
-     package="com.comtacti.croxit.Test1"
+     file="Test2"
+     title="Croxit Test 2"
+     package="com.comtacti.croxit.Test2"
      version="1.0"
      company="Comtacti" 
 	 main="Main"
