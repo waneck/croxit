@@ -21,3 +21,6 @@ Right now, we are in early alpha, and the only supported mobile platform is iOs.
 Read the code examples, and get coding! :)
 
 This awesome lib is brought to you by http://www.braincorps.com.br and http://www.comtacti.com.br
+
+## Known issues
+ * As a platform limitation of iOs WebView, **there can't be any absolute paths** in your code. The issue is that we're on file:// namespace, so absolute paths will refer to iOs' own root
