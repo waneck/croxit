@@ -6,6 +6,11 @@ class Main
 	
 	public static function main()
 	{
+		//since index.html exists, this function won't be called until the user clicks in the links at the bottom
+		//when he clicks, this function will be called and Web.getURI() will return the address of the clicked linked
+		
+		//BEWARE that the link in the .html file MUST be relative (e.g. no /page1 links), while we will receive absolute
+		//links in response.
 		switch(Web.getURI())
 		{
 			case "/page1":
