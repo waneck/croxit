@@ -1,3 +1,12 @@
 1 - run 'nme update Test.nmml iphone'
-2 - open bin/iphone/Test3.xcodeproj
-3 - 
+2 - open the bin/iphone/Test3.xcodeproj in xcode
+3 - click and drag the 'www' folder to your project tab in xcode
+	A dialogue will appear
+4 - Select Reference type as "Relative to Project", and check "Create folder References" (so you are able to edit the index.html sources directly)
+5 - save the project
+6 - copy bin/iphone/Test3.xcodeproj to your template folder
+
+-- Why is this necessary?
+ 
+	1) we don't want to impose a needed 'www' location for this to work
+	2) The NME build tool doesn't allow custom templates to be generated with the project name

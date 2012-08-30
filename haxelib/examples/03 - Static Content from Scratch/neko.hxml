@@ -1,0 +1,4 @@
+#run this if you want to build a neko version to run in a webserver
+-neko www/index.n
+-main Main
+-lib croxit-1
