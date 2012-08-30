@@ -58,8 +58,5 @@
 
 <target id="default"> 
 	<target id="croxit" />  
-	<target id="croxit_nme" /> 
-	<target id="croxit_geo" /> 
-	<target id="croxit_display" /> 
 </target>
 </xml>

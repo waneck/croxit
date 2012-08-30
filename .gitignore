@@ -1,0 +1,5 @@
+
+.DS_Store
+
+haxelib/native-project/obj
+haxelib/native-project/native/.DS_Store

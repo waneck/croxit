@@ -5,7 +5,7 @@
 #if defined(HX_WINDOWS) || defined(HX_MACOS) || defined(HX_LINUX)
 #define NEKO_COMPATIBLE
 #endif
-#include "nekogap_events.h"
+#include "croxit_events.h"
 
 #import <UIKit/UIKit.h>
 //missing:
@@ -912,12 +912,17 @@ extern "C" {
 		switch(val_int(info))
 		{
 			case 0:
+			{
 				paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 				break;
+			}
 			case 1:
+			{
 				paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
 				break;
+			}
 			case 2:
+			{
 				paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 				NSString *cachePath = [paths objectAtIndex:0];
 				BOOL isDir = NO;
@@ -927,9 +932,12 @@ extern "C" {
 					[[NSFileManager defaultManager] createDirectoryAtPath:cachePath withIntermediateDirectories:NO attributes:nil error:&error];
 				}
 				break;
+			}
 			default: 
+			{
 				[pool release];
 				neko_error();
+			}
 		}
 		NSString *documentsDirectory = [paths objectAtIndex:0];
 		NSString *writableDBPath = [documentsDirectory stringByAppendingPathComponent:rpath];
@@ -966,12 +974,17 @@ extern "C" {
 		switch(val_int(info))
 		{
 			case 0:
+			{
 				paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 				break;
+			}
 			case 1:
+			{
 				paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
 				break;
+			}
 			case 2:
+			{
 				paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 				NSString *cachePath = [paths objectAtIndex:0];
 				BOOL isDir = NO;
@@ -981,9 +994,12 @@ extern "C" {
 					[[NSFileManager defaultManager] createDirectoryAtPath:cachePath withIntermediateDirectories:NO attributes:nil error:&error];
 				}
 				break;
+			}
 			default: 
+			{
 				[pool release];
 				neko_error();
+			}
 		}
 		NSString *documentsDirectory = [paths objectAtIndex:0];
 		
