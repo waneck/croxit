@@ -205,11 +205,10 @@ extern "C"
 	NSURL *url = [request URL];
 	NSString *baseReq = baseRequest;
 	NSString *baseReqPrefix = [baseReq substringToIndex:([baseReq length] - 1)];
-	//NSLog(@"Oh look a request! %@ (abs %@) - %@ (%d)",baseRequest,[url absoluteString],[url path],[[url path] hasPrefix:baseReqPrefix]);
 	
 	
 	if ([url isFileURL] && [[url path] hasPrefix:baseReqPrefix]) { //test if it's a local request and if it is inside www sandbox
-		//NSLog(@"isFileURL AND baseRequest");
+		//NSLog(@"local request");
 		
 		//test first if it is a named anchor
 		/*if ([url fragment] != nil && [[url path] isEqual:baseReqPrefix])
@@ -222,7 +221,7 @@ extern "C"
 		if ([[NSFileManager defaultManager] fileExistsAtPath:[url path] isDirectory:&isDir] && !isDir)
 		{
 			//if it exists, return yes
-			//NSLog(@"file exists");
+			//NSLog(@"local request exists");
 			[pool release];
 			return YES;
 		} else {
@@ -235,7 +234,7 @@ extern "C"
 			}
 				
 			
-			//if not call our hxcpp handler
+			//if it doesn't exist, call our hxcpp handler
 			//NSLog(@"file doesn't exist");
 			ngap_request req = new_ngap_request(request, baseRequest);
 			ngap_request last_request = ngap_context;
@@ -244,6 +243,8 @@ extern "C"
 			
 			if (!ngap_main_callback || !ngap_main_callback->get())
 			{
+				NSLog(@"No request handler defined!");
+				//TODO show error page
 				val_throw(alloc_string("No request handler defined!"));
 			}
 			
@@ -254,10 +255,8 @@ extern "C"
 			const char * mime = ngap_context.mime;
 			const char * encoding = ngap_context.encoding;
 			
-			//NSLog(@"%d is mime",mime);
 			if (!mime)
 			{
-				//NSLog(@"not mime");
 				mime = "text/html";
 			}
 			
@@ -267,10 +266,9 @@ extern "C"
 			}
 			
 			//render content to screen
-			//NSLog(@"loading data \n%s \nlen %d\n mime %@\n encoding %@\n baseReq %@", val_string(buffer_str), val_strlen(buffer_str), [NSString stringWithUTF8String:mime], [NSString stringWithUTF8String:encoding], baseRequest);
 			if (!ngap_context.to_redirect)
 			{
-				//NSLog(@"going %s", val_string(buffer_str));
+				//NSLog(@"buffer contents: %s", val_string(buffer_str));
 				ngap_context.skip = true;
 				last_request.skip = true;
 				
@@ -289,8 +287,6 @@ extern "C"
 				[self loadWithPath:[NSString stringWithUTF8String:to_redir_s]];
 				free(to_redir);
 			}
-			
-			//[webview loadHTMLString:[NSString stringWithUTF8String:val_string(buffer_str)] baseURL:[NSURL URLWithString: baseRequest]];
 			
 			//release all ngap_request info
 			
@@ -313,13 +309,15 @@ extern "C"
 			return NO;
 		}
 	} else if ([url.scheme isEqual:@"cxlog"]) {
+		//handle logging
 		NSString *requestString = [[url absoluteString] stringByReplacingPercentEscapesUsingEncoding: NSUTF8StringEncoding];
 		NSString* logString = [[requestString componentsSeparatedByString:@":#-1#"] objectAtIndex:1];
-		NSLog(@"UIWebView console: %@", logString);
+		NSLog(@"[UIWebView console] %@", logString);
 		
 		[pool release];
 		return NO;
 	} else if ([url.scheme isEqual:@"cxconnect"]) {
+		//handle remoting connection
 		NSString *requestString = [url absoluteString];
 		
 		if (ngap_global_event_handler && ngap_global_event_handler->get())
@@ -335,11 +333,7 @@ extern "C"
 	}
 	
 	[pool release];
-	return YES;/*
-	if (ngap_allow_external)
-		return YES;
-	else
-		return NO;*/
+	return YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -406,6 +400,8 @@ extern "C"
 	[webView stringByEvaluatingJavaScriptFromString:@"console.info = console.log;"];
 	
 	//call deviceready
+	
+	//calling dispatchEvent for compatibility with PhoneGap
 	[webView stringByEvaluatingJavaScriptFromString:@"var evt = document.createEvent('Event');"];
 	[webView stringByEvaluatingJavaScriptFromString:@"evt.initEvent('deviceready', true, true);"];
 	[webView stringByEvaluatingJavaScriptFromString:@"document.dispatchEvent(evt);"];
@@ -485,10 +481,6 @@ extern "C"
 		//[c setWebview:[[UIWebView alloc] initWithFrame:[_window frame]]];
 
 		[_window addSubview:[c view]];
-
-		//NSString *urlAddress = @"http://www.google.com";
-
-		//NSString *urlAddress = (NSString*)[[NSBundle mainBundle] pathForResource:@"haxe" ofType:@"html"];
 
 		[c setBaseRequest: [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"www"] stringByAppendingString:@"/"]];
 		if (ngap_context.to_redirect)
