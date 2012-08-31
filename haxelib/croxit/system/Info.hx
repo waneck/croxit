@@ -66,7 +66,7 @@ class Info
 	
 	static var _ngap_get_writable_path = Loader.load("ngap_get_writable_path", 1);
 	static var _set_allow_external = Loader.load("ngap_set_allow_external", 1);
-	static var _ngap_get_writable_path_or_write = Loader.load("ngap_get_writable_path_or_write", 2);
+	static var _ngap_get_writable_path_or_write = Loader.load("ngap_get_writable_path_or_copy", 2);
 }
 
 enum PathInfo
