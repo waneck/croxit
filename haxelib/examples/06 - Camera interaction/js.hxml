@@ -1,0 +1,4 @@
+-js www/js.js
+-main JSMain
+-lib croxit-1
+-lib croxit-camera-1

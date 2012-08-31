@@ -42,7 +42,6 @@ class Connection
 		#if iphone
 		if (ctx != null)
 			setContext(ctx);
-		
 		return false;
 		
 		#else
