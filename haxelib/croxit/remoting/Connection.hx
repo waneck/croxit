@@ -100,7 +100,7 @@ private class Cnx implements haxe.remoting.Connection
 {
 	var __path : Array<String>;
 	
-	function new(path) : Void 
+	public function new(path) : Void 
 	{
 		this.__path = path;
 	}
@@ -120,7 +120,7 @@ private class Cnx implements haxe.remoting.Connection
 	
 	public function resolve( name : String ) : haxe.remoting.Connection
 	{
-		var c = new Connection(__path.copy());
+		var c = new Cnx(__path.copy());
 		c.__path.push(name);
 		return c;
 	}
