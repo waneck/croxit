@@ -1,6 +1,8 @@
 package croxit;
 
 #if display
+import haxe.io.Bytes;
+
 extern class Web 
 {
 	/**
