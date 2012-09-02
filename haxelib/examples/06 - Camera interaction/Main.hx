@@ -41,10 +41,23 @@ class CameraContext
 			 *  Successfully retrieved an image
 			 **/
 			case Success(img):
-				var path = Std.random(10000) + "-" + Std.random(10000) + ".png";
-				var fullpath = croxit.system.Info.getWritablePath(TempCache) + "/" + path;
+				//always make image be on the correct orientation
+				var oldimg = img;
+				img = img.normalizeRotation();
+				oldimg.dispose();
+				
+				var path = Std.random(10000) + "-" + Std.random(10000);
+				var fullpath = croxit.system.Info.getWritablePath(TempCache) + "/" + path + ".png";
+				
 				sys.io.File.saveBytes(fullpath, img.getCompressed(PNG));
-				Connection.connect().js.showImage.call(["file://" + fullpath]);
+				var resized = img.resize(img.width / 5, img.height / 5);
+				img.dispose();
+				img = null;
+				
+				var thumbpath = croxit.system.Info.getWritablePath(TempCache) + "/thumb_" + path + ".png";
+				sys.io.File.saveBytes(thumbpath, resized.getCompressed(PNG));
+				
+				Connection.connect().js.showImages.call([ ["file://" + fullpath, "file://" + thumbpath] ]);
 			/**
 			 *  User cancelled the dialogue
 			 **/

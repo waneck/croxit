@@ -39,8 +39,10 @@ class JSMain
 		new JQuery("#contents").html("<p>" + txt + "</p>");
 	}
 	
-	public function showImage(img:String)
+	public function showImages(imgs:Array<String>)
 	{
-		new JQuery("#contents").html("<p><img src=\"" + img + "\" /></p>");
+		new JQuery("#contents").html("");
+		for (img in imgs)
+			new JQuery("#contents").append("<p><img src=\"" + img + "\" /></p>");
 	}
 }
