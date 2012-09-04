@@ -1,4 +1,6 @@
-	* refactor code to use croxit namespace
-	* clearly separate js api
-	* support for writable path querying
-	* add a 
+	* allow both neko server remoting and croxit remoting be able to share the same API
+	* support non-fullscreen webviews (setting their property)
+	* Screen and Window API (for devices that have more than one screen or window support)
+	* allow more than one webview to be opened, with naming option
+	* android version using Haxe/Java
+	* desktop version using webkit
