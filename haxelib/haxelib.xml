@@ -8,6 +8,6 @@
     <tag v="neko"/>
     <tag v="hxcpp"/>
     <description>Croxit is a library that enables Haxe-written HTML5/JS applications to run on a cross-platform, offline environment. It emulates the neko.Web API and allows client/server-style applications to run offline on a mobile or desktop device.</description>
-    <version name="0.0.2">Added ARMv7 ndlls.</version>
+    <version name="0.0.3">Added support for using js->server connection on neko servers as well.</version>
 	<depends name="hsl-pico-1"/>
 </project>

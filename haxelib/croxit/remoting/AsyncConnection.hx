@@ -63,8 +63,13 @@ class AsyncConnection implements haxe.remoting.AsyncConnection, implements Dynam
 		catch(e:Dynamic) { trace("error on " + e); }
 	}
 
-	public static function connect() {
-		return new AsyncConnection({ error : function(e) untyped __js__("console.error")("(connection) " + e), hasHandler : false },[]);
+	public static function connect(url:String="/"):haxe.remoting.AsyncConnection
+	{
+		//TODO find a better way to detect the croxit environment
+		if (croxit.js.Client.baseDir == null)
+			return haxe.remoting.HttpAsyncConnection.urlConnect(url);
+		else
+			return new AsyncConnection({ error : function(e) untyped __js__("console.error")("(connection) " + e), hasHandler : false },[]);
 	}
 	
 	public static function addObject(name:String, obj:Dynamic, ?rec):Void
