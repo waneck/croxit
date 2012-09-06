@@ -1075,6 +1075,25 @@ extern "C" {
 	
 	DEFINE_PRIM(ngap_call_js, 1);
 	
+	value ngap_set_bounces(value boolv)
+	{
+		val_check(boolv, bool);
+		BOOL v = val_bool(boolv);
+		
+		for (id subview in web_view_controller.webview.subviews)
+		  if ([[subview class] isSubclassOfClass: [UIScrollView class]])
+		    ((UIScrollView *)subview).bounces = v;
+		
+		if ([web_view_controller.webview respondsToSelector:@selector(scrollView)])
+		{
+			((UIScrollView *) [web_view_controller.webview scrollView]).bounces = v;
+		}
+		
+		return val_null;
+	}
+	
+	DEFINE_PRIM(ngap_set_bounces, 1);
+	
 	//void ngap_cache_module
 };
 

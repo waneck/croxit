@@ -96,6 +96,15 @@ class Croxit
 		return _call_js(js);
 	}
 	
+	/**
+	 *  For mobile devices, sets if the scroll should bounce
+	 **/
+	public static function setBounces(val:Bool):Void
+	{
+		_set_bounces(val);
+	}
+	
+	private static var _set_bounces = Loader.load("ngap_set_bounces", 1);
 	private static var _show = Loader.load("ngap_show", 0);
 	private static var _hide = Loader.load("ngap_hide", 0);
 	private static var _init = Loader.load("ngap_init", 0);
