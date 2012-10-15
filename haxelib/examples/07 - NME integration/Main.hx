@@ -36,7 +36,7 @@ class Ball extends nme.display.Sprite
 			var b = new Ball();
 			
 			b.addEventListener(flash.events.MouseEvent.CLICK, function (_) {
-				nekogap.plugins.nme.NME.stop();
+				croxit.nme.NME.stop();
 				trace("stopped");
 			});
 			nme.Lib.current.addChild(b);

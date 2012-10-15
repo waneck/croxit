@@ -25,6 +25,7 @@
   
   <haxelib name="croxit-1" />
   <haxelib name="croxit-nme-1" />
+  <haxelib name="nme" />
   <ndll name="std" />
   <ndll name="regexp" />
   <ndll name="zlib" />
