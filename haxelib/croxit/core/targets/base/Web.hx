@@ -2,12 +2,10 @@ package croxit.core.targets.base;
 import croxit.core.Loader;
 import croxit.utils.Path;
 import haxe.io.Bytes;
-#if neko
-import neko.Sys;
-#else
-import cpp.Sys;
-#end
 
+#if haxe3
+import haxe.ds.StringMap in Hash;
+#end
 
 class Web 
 {

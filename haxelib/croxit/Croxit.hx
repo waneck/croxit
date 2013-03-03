@@ -13,8 +13,11 @@ class Croxit
 	public static var OrientationLandscapeLeft = 4;
 	public static var OrientationFaceUp = 5;
 	public static var OrientationFaceDown = 6;
-	
+#if haxe3
+	public static var shouldRotateInterface(default, set):Int->Bool;
+#else
 	public static var shouldRotateInterface(default, set_shouldRotateInterface):Int->Bool;
+#end
 	
 	private static function set_shouldRotateInterface(v:Int->Bool):Int->Bool
 	{
