@@ -1,4 +1,5 @@
 package croxit.js;
+import haxe.Timer;
 
 #if js
 
@@ -7,6 +8,37 @@ package croxit.js;
  **/
 class Client
 {
+	static var deviceReady = [];
+	
+	static function __init__()
+	{
+		var __deviceReadyCalled = false;
+		js.Lib.window.onload = function(_) {
+			Timer.delay(function() {
+				if (!__deviceReadyCalled)
+				{
+					__deviceReadyCalled = true;
+					untyped __js__("
+					var evt = document.createEvent('Event');
+					evt.initEvent('deviceready', true, true);
+					document.dispatchEvent(evt)");
+					while (deviceReady.length > 0)
+						deviceReady.pop()();
+				}
+			}, 500);
+		};
+		
+		if (untyped __js__('document.addEventListener'))
+		{
+			untyped js.Lib.document.addEventListener("deviceready", function() {
+				if (__deviceReadyCalled) trace("Device ready was already called!");
+				__deviceReadyCalled = true;
+				while (deviceReady.length > 0)
+					deviceReady.pop()();
+			}, false);
+		}
+	}
+	
 	public static var baseDir(default, null):String;
 	public static var writableDir(default, null):Null<String>;
 	
@@ -23,7 +55,7 @@ class Client
 	 **/
 	public static function onDeviceReady(fn:Void->Void):Void
 	{
-		untyped js.Lib.document.addEventListener("deviceready", fn, false);
+		deviceReady.push(fn);
 	}
 }
 
