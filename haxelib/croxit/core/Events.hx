@@ -1,25 +1,28 @@
 package croxit.core;
 import croxit.core.Loader;
+#if haxe3
+import haxe.ds.StringMap in Hash;
+#end
 
 class Events
 {
 	private static var events(get_events, null):Hash<Array<Dynamic>>;
 	private static var activateEvents(get_activateEvents, null):Hash<Array<Bool->Void>>;
-	
+
 	private static function get_events()
 	{
 		return (events == null) ? (events = new Hash()) : events;
 	}
-	
+
 	private static function get_activateEvents()
 	{
 		return (activateEvents == null) ? (activateEvents = new Hash()) : activateEvents;
 	}
-	
-	private static function dispatchEvent(name:String, args:Array<Dynamic>):Void 
+
+	private static function dispatchEvent(name:String, args:Array<Dynamic>):Void
 	{
 		var fns = events.get(name);
-		
+
 		if (args == null) args = [];
 		if (fns != null)
 			for (fn in fns)
@@ -27,13 +30,13 @@ class Events
 				Reflect.callMethod(null, fn, args);
 			}
 	}
-	
+
 	private static function hasHandlers(name:String):Bool
 	{
 		return events.exists(name);
 	}
-	
-	static function __init__() : Void 
+
+	static function __init__() : Void
 	{
 		var setEvHandler = Loader.load("ngap_set_global_event_handler", 1);
 		if (setEvHandler == null)
@@ -47,9 +50,9 @@ class Events
 			else
 				setActivateHandler(activateEvent);
 		}
-			
+
 	}
-	
+
 	private static function activateEvent(eventName:String, add:Bool, fn:Bool->Void):Void
 	{
 		var ae = activateEvents.get(eventName);
@@ -60,7 +63,7 @@ class Events
 			ae = [];
 			activateEvents.set(eventName, ae);
 		}
-		
+
 		if (add)
 		{
 			ae.push(fn);
@@ -68,8 +71,8 @@ class Events
 			ae.remove(fn);
 		}
 	}
-	
-	
+
+
 	public static function addHandler(eventName:String, handler:Dynamic):Void
 	{
 		var evArr = events.get(eventName);
@@ -81,11 +84,11 @@ class Events
 			evArr = [];
 			events.set(eventName, evArr);
 		}
-		
+
 		evArr.remove(handler);
 		evArr.push(handler);
 	}
-	
+
 	public static function removeHandler(eventName:String, handler:Dynamic):Void
 	{
 		var evArr = events.get(eventName);
@@ -103,5 +106,5 @@ class Events
 			}
 		}
 	}
-	
+
 }

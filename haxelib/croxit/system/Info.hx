@@ -1,5 +1,8 @@
 package croxit.system;
 import croxit.core.Loader;
+#if haxe3
+import haxe.ds.StringMap in Hash;
+#end
 
 /**
  *  Miscellaneous system information
@@ -10,7 +13,7 @@ class Info
 	private static var writableDocumentPath:Null<String>;
 	private static var writableDataPath:Null<String>;
 	private static var writableCachePath:Null<String>;
-	
+
 	/**
 	 *  Resets all cookies / stored browser information
 	 **/
@@ -18,10 +21,10 @@ class Info
 	{
 		untyped Web.allCookies = new Hash();
 	}
-	
+
 	/**
 	 *  Returns a writable path for an asset, if it exists.
-	 *  
+	 *
 	 *  Otherwise, if the file exists in the non-writable 'www' folder,
 	 *  it will copy to a writable place and return its path.
 	 **/
@@ -30,7 +33,7 @@ class Info
 		if (info == null) info = AppData;
 		return _ngap_get_writable_path_or_write(relativePath, Type.enumIndex(info));
 	}
-	
+
 	/**
 	 *  Gets the writable base path
 	 **/
@@ -61,9 +64,9 @@ class Info
 					return writableCachePath;
 				}
 		}
-		
+
 	}
-	
+
 	static var _ngap_get_writable_path = Loader.load("ngap_get_writable_path", 1);
 	static var _set_allow_external = Loader.load("ngap_set_allow_external", 1);
 	static var _ngap_get_writable_path_or_write = Loader.load("ngap_get_writable_path_or_copy", 2);
