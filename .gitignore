@@ -4,3 +4,5 @@ bin
 
 haxelib/native-project/obj
 haxelib/native-project/native/.DS_Store
+*.o
+
