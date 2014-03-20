@@ -1,10 +1,10 @@
 {
-  "name": "croxit-1",
+  "name": "croxit-2",
   "url": "http://github.com/waneck/croxit",
   "license": "BSD",
   "tags": ["cross","utility","mobile","html5","server","neko","hxcpp"],
   "description": "Croxit is a library that enables Haxe-written HTML5/JS applications to run on a cross-platform, offline environment. It emulates the neko.Web API and allows client/server-style applications to run offline on a mobile or desktop device.",
-  "version": "0.0.5",
-  "releasenote": "Haxe 3.0 Release",
+  "version": "2.0.0-alpha",
+  "releasenote": "Starting version 2 development (not ready)",
   "contributors": ["waneck"],
 }
