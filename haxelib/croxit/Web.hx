@@ -3,7 +3,7 @@ package croxit;
 import haxe.ds.StringMap in Hash;
 #end
 
-#if display
+#if false
 import haxe.io.Bytes;
 
 extern class Web
