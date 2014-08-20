@@ -9,11 +9,13 @@ import haxe.Timer;
 class Client
 {
 	static var deviceReady = [];
-	
+
 	static function __init__()
 	{
 		var __deviceReadyCalled = false;
-		js.Lib.window.onload = function(_) {
+		var window = #if haxe3 js.Browser.window #else js.Lib.window #end;
+		var document:Dynamic = #if haxe3 js.Browser.document #else js.Lib.document #end;
+		window.onload = function(_) {
 			Timer.delay(function() {
 				if (!__deviceReadyCalled)
 				{
@@ -27,10 +29,10 @@ class Client
 				}
 			}, 500);
 		};
-		
-		if (untyped __js__('document.addEventListener'))
+
+		if (document.addEventListener)
 		{
-			untyped js.Lib.document.addEventListener("deviceready", function() {
+			document.addEventListener("deviceready", function() {
 				if (__deviceReadyCalled) trace("Device ready was already called!");
 				__deviceReadyCalled = true;
 				while (deviceReady.length > 0)
@@ -38,10 +40,10 @@ class Client
 			}, false);
 		}
 	}
-	
+
 	public static var baseDir(default, null):String;
 	public static var writableDir(default, null):Null<String>;
-	
+
 	/**
 	 *  Sends a message to the server
 	 **/
@@ -49,7 +51,7 @@ class Client
 	{
 		throw "Error: Trying to send content before device is ready";
 	}
-	
+
 	/**
 	 *  Called when the device is ready for the JavaScript API to work correctly
 	 **/
