@@ -39,7 +39,7 @@ class Info
 	 **/
 	public static function getWritablePath(?info:Null<PathInfo>):String
 	{
-		if (info == null) info = AppData;
+		var info:PathInfo = if (info == null) AppData else info;
 		switch(info)
 		{
 			case AppDocument:
