@@ -58,6 +58,7 @@ class DirectSignaler<T> implements Signaler<T>
 				cur.destroy();
 				return;
 			}
+			cur = cur.next;
 		}
 	}
 
@@ -71,6 +72,7 @@ class DirectSignaler<T> implements Signaler<T>
 				cur.destroy();
 				return;
 			}
+			cur = cur.next;
 		}
 	}
 
@@ -81,11 +83,13 @@ class DirectSignaler<T> implements Signaler<T>
 		while (cur != null)
 		{
 			cur.value(val);
+			cur = cur.next;
 		}
 		var cur = voids.next;
 		while (cur != null)
 		{
 			cur.value();
+			cur = cur.next;
 		}
 	}
 }
