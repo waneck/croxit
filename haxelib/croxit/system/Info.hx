@@ -45,26 +45,37 @@ class Info
 			case AppDocument:
 				if (writableDocumentPath == null)
 				{
-					return writableDocumentPath = _ngap_get_writable_path(0) + "/";
+					var p = _ngap_get_writable_path(0);
+					// fix for jailbroken apps
+					if (p == null) p = Sys.getCwd() + '/Documents';
+
+					return writableDocumentPath = p + "/";
 				} else {
 					return writableDocumentPath;
 				}
 			case AppData:
 				if (writableDataPath == null)
 				{
-					return writableDataPath = _ngap_get_writable_path(1) + "/";
+					var p = _ngap_get_writable_path(1);
+					// fix for jailbroken apps
+					if (p == null) p = Sys.getCwd() + '/Library';
+
+					return writableDataPath = p + "/";
 				} else {
 					return writableDataPath;
 				}
 			case TempCache:
 				if (writableCachePath == null)
 				{
-					return writableCachePath = _ngap_get_writable_path(2) + "/";
+					var p = _ngap_get_writable_path(2);
+					// fix for jailbroken apps
+					if (p == null) p = Sys.getCwd() + '/Temp';
+
+					return writableCachePath = p + "/";
 				} else {
 					return writableCachePath;
 				}
 		}
-
 	}
 
 	static var _ngap_get_writable_path = Loader.load("ngap_get_writable_path", 1);
