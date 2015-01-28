@@ -996,12 +996,7 @@ extern "C" {
 		NSString *documentsDirectory = [paths objectAtIndex:0];
 		
 		value ret;
-		if ([fileManager fileExistsAtPath:documentsDirectory])
-		{
-			ret = alloc_string([documentsDirectory UTF8String]);
-		} else {
-			ret = alloc_null();
-		}
+		ret = alloc_string([documentsDirectory UTF8String]);
 		
 		[pool release];
 		return ret;

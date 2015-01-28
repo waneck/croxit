@@ -47,7 +47,10 @@ class Info
 				{
 					var p = _ngap_get_writable_path(0);
 					// fix for jailbroken apps
-					if (p == null) p = Sys.getCwd() + '/Documents';
+					if (!sys.FileSystem.exists(p))
+					{
+						sys.FileSystem.createDirectory(p);
+					}
 
 					return writableDocumentPath = p + "/";
 				} else {
@@ -58,7 +61,10 @@ class Info
 				{
 					var p = _ngap_get_writable_path(1);
 					// fix for jailbroken apps
-					if (p == null) p = Sys.getCwd() + '/Library';
+					if (!sys.FileSystem.exists(p))
+					{
+						sys.FileSystem.createDirectory(p);
+					}
 
 					return writableDataPath = p + "/";
 				} else {
@@ -69,7 +75,10 @@ class Info
 				{
 					var p = _ngap_get_writable_path(2);
 					// fix for jailbroken apps
-					if (p == null) p = Sys.getCwd() + '/Temp';
+					if (!sys.FileSystem.exists(p))
+					{
+						sys.FileSystem.createDirectory(p);
+					}
 
 					return writableCachePath = p + "/";
 				} else {

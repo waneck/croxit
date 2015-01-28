@@ -10,6 +10,12 @@ CFLAGS += -g0 -O2
 CFLAGS += -I"$(SRCDIR)"
 CFLAGS += -I"/usr/include/clang/3.2/include/"
 
+ARCH=
+ifneq ($(IOSARCH),)
+	CPPFLAGS += -arch arm$(IOSARCH)
+	ARCH = -$(IOSARCH)
+endif
+
 CPPFLAGS += -objc-arc
 CPPFLAGS += -fblocks
 CPPFLAGS += -g0 -O2
@@ -23,9 +29,9 @@ OBJS+=$(patsubst %.c,%.o,$(wildcard $(SRCDIR)/*.c))
 OBJS+=$(patsubst %.cpp,%.o,$(wildcard $(SRCDIR)/*.cpp))
 OBJS+=$(patsubst %.mm,%.o,$(wildcard $(SRCDIR)/*.mm))
 
-all:	../ndll/iPhone/lib$(PROJECTNAME).iphoneos.a
+all:	../ndll/iPhone/lib$(PROJECTNAME).iphoneos${ARCH}.a
 
-../ndll/iPhone/lib$(PROJECTNAME).iphoneos.a:	$(OBJS)
+../ndll/iPhone/lib$(PROJECTNAME).iphoneos${ARCH}.a:	$(OBJS)
 	$(AR) cr $@ $(filter %.o,$^)
 
 %.o:	%.m

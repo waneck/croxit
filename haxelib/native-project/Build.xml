@@ -11,6 +11,8 @@
 <set name="tool" value="static" if="iphone"/>
 
 <set name="IOS_ARCH" value="-v7" if="HXCPP_ARMV7" />
+<set name="IOS_ARCH" value="-v7s" if="HXCPP_ARMV7S" />
+<set name="IOS_ARCH" value="-64" if="HXCPP_ARM64" />
 
 <set name="LIBEXTRA" value=".iphoneos${IOS_ARCH}" if="iphoneos"/>
 <set name="LIBEXTRA" value=".iphonesim" if="iphonesim"/>
