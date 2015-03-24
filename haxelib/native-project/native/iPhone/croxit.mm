@@ -570,6 +570,15 @@ extern "C"
 @end
 
 extern "C" {
+
+	value ngap_log(value vmsg)
+	{
+		const char *msg;
+		val_check(vmsg,string);
+		msg = val_string(vmsg);
+		NSLog(@"%s",msg);
+	}
+	DEFINE_PRIM(ngap_log, 1);
 	
 	value ngap_hide()
 	{

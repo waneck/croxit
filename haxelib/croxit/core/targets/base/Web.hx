@@ -7,23 +7,23 @@ import haxe.io.Bytes;
 import haxe.ds.StringMap in Hash;
 #end
 
-class Web 
+class Web
 {
 	/**
 	 * Croxit will return true for isModNeko, as it emulates a web server
 	 */
 	public static var isModNeko(get_isModNeko, null) : Bool;
-	
+
 	private static function get_isModNeko():Bool
 	{
 		return true;
 	}
-	
+
 	/**
 		It will always return false for modTora, as it doesn't support the Tora api (yet)
 	 */
 	public static var isTora(default, null) : Bool;
-	
+
 	/**
 		Sets the main entry point function used to handle requests. Setting it back to null will make croxit call the main function as the handler
 	 */
@@ -31,7 +31,7 @@ class Web
 	{
 		_cache_module(f);
 	}
-	
+
 	/**
 		In the case of croxit, it won't do anything
 	 */
@@ -39,7 +39,7 @@ class Web
 	{
 		//do nothing
 	}
-	
+
 	/**
 		NOT IMPLEMENTED
 	 */
@@ -47,7 +47,7 @@ class Web
 	{
 		return null;
 	}
-	
+
 	/**
 		Retrieve a emulated request header value.
 	 */
@@ -61,30 +61,30 @@ class Web
 			default: null;
 		}
 	}
-	
+
 	public static function getClientHeaders() : List<{ value : String, header : String }>
 	{
 		throw "not implemented";
 		return null;
 	}
-	
+
 	/**
-		Always returns 127.0.0.16 for Croxit clients. 
+		Always returns 127.0.0.16 for Croxit clients.
 		It doesn't return the standard 127.0.0.1 so there is a difference with default localhost testing. 127.0.0.16 is a standard loopack IP also.
 	 */
 	public static function getClientIP() : String
 	{
 		return "127.0.0.16";
 	}
-	
+
 	private static var allCookies:Hash<Hash<String>> = new Hash();
-	
+
 	/**
 		Returns an hashtable of all Cookies sent by the client. Modifying the hashtable will not modify the cookie, use setCookie instead.
 	 */
 	public static function getCookies() : Hash<String>
 	{
-		
+
 		var ret = new Hash();
 		function add(h:Hash<String>)
 		{
@@ -93,9 +93,9 @@ class Web
 				ret.set(k, h.get(k));
 			}
 		}
-		
+
 		var curUri = Path.make(getURI(), true);
-		
+
 		var acc = "";
 		for (dir in curUri.dirs())
 		{
@@ -104,10 +104,10 @@ class Web
 			if (cookies != null)
 					add(cookies);
 		}
-		
+
 		return ret;
 	}
-	
+
 	/**
 		Set a Cookie value in the HTTP headers. Same remark as setHeader. You may have to apply StringTools.urlEncode your value to prevent issues on retrieval.
 	 */
@@ -116,17 +116,17 @@ class Web
 		if (path == null) path = "/";
 		path = Path.make(path, true).toString();
 		if (path.charCodeAt(path.length - 1) != '/'.code) path += '/';
-		
+
 		var cookies = allCookies.get(path);
 		if (cookies == null)
 		{
 			cookies = new Hash();
 			allCookies.set(path, cookies);
 		}
-		
+
 		cookies.set(key, value);
 	}
-	
+
 	/**
 		Get the current script directory in the local filesystem.
 	 */
@@ -138,7 +138,7 @@ class Web
 		return Sys.getCwd();
 #end
 	}
-	
+
 	/**
 		Will always return "localapphost" for Croxit
 	 */
@@ -146,7 +146,7 @@ class Web
 	{
 		return "localapphost";
 	}
-	
+
 	/**
 		Get the HTTP method used by the client. This api requires Neko 1.7.1+
 	 */
@@ -154,7 +154,7 @@ class Web
 	{
 		return _get_method();
 	}
-	
+
 	/**
 		Returns an Array of Strings built using GET / POST values. If you have in your URL the parameters a=foo;a=hello;a5=bar;a3=baz then neko.Web.getParamValues("a") will return "foo","hello",null,"baz",null,"bar"
 		Also, if you send checkboxes with name "myname[]", multiple checkbox values are available as getParamValues("myname")
@@ -184,7 +184,7 @@ class Web
 			return null;
 		return res;
 	}
-	
+
 	/**
 		Returns the GET and POST parameters.
 	 */
@@ -196,16 +196,16 @@ class Web
 			var vals = v.split("=");
 			params.set(StringTools.urlDecode(vals[0]), StringTools.urlDecode(vals[1]));
 		}
-		
+
 		for (v in getPostData().split("&"))
 		{
 			var vals = v.split("=");
 			params.set(StringTools.urlDecode(vals[0]), StringTools.urlDecode(vals[1]));
 		}
-		
+
 		return params;
 	}
-	
+
 	/**
 		Returns all the GET parameters String
 	 */
@@ -213,7 +213,7 @@ class Web
 	{
 		return _get_params();
 	}
-	
+
 	/**
 		Returns all the POST data.
 	 */
@@ -232,35 +232,40 @@ class Web
 			return "/" + ret;
 		return ret;
 	}
-	
+
 	/**
 		Write a message into the web server log file. This api requires Neko 1.7.1+
 	 */
 	public static function logMessage( v : String ) : Void
 	{
-		#if cpp
-		var v:Dynamic = v;
-		untyped __global__.__hxcpp_println(v);
-		#elseif neko
-		untyped __dollar__print(v,"\n");
-		#end
+		if (_log != null)
+		{
+			_log(Std.string(v));
+		} else {
+			#if cpp
+			var v:Dynamic = v;
+			untyped __global__.__hxcpp_println(v);
+			#elseif neko
+			untyped __dollar__print(v,"\n");
+			#end
+		}
 	}
-	
+
 	public static function print(str:String)
 	{
 		_print(str);
 	}
-	
+
 	/**
 	 * NOT IMPLEMENTED
-		Parse the multipart data. Call onPart when a new part is found with the part name and the filename if present and onData when some part data is readed. 
+		Parse the multipart data. Call onPart when a new part is found with the part name and the filename if present and onData when some part data is readed.
 		You can this way directly save the data on hard drive in the case of a file upload.
 	 */
 	public static function parseMultipart( onPart : String -> String -> Void, onData : Bytes -> Int -> Int -> Void ) : Void
 	{
 		throw "NOT IMPLEMENTED";
 	}
-	
+
 	/**
 		Get the multipart parameters as an hashtable. The data cannot exceed the maximum size specified. NOT IMPLEMENTED
 	 */
@@ -269,7 +274,7 @@ class Web
 		throw "Not Implemented";
 		return null;
 	}
-	
+
 	/**
 		Tell the client to redirect to the given url.
 	 */
@@ -277,7 +282,7 @@ class Web
 	{
 		_redirect(url);
 	}
-	
+
 	/**
 	 * NOT IMPLEMENTED
 		Set an output header value. If some data have been printed, the headers have already been sent so this will raise an exception.
@@ -289,7 +294,7 @@ class Web
 			case "content-type":
 				var vs = v.split(";");
 				_set_mime(StringTools.trim(vs[0]));
-				
+
 				var enc = vs[1];
 				if (enc != null)
 				{
@@ -299,7 +304,7 @@ class Web
 				throw "NOT IMPLEMENTED";
 		}
 	}
-	
+
 	/**
 	 * NOT IMPLEMENTED
 		Set the HTTP return code. Same remark as setHeader.
@@ -308,7 +313,7 @@ class Web
 	{
 		//throw "NOT IMPLEMENTED";
 	}
-	
+
 	private static var _cache_module = Loader.load("ngap_cache_module", 1);
 	private static var _get_method = Loader.load("ngap_method", 0);
 	private static var _get_params = Loader.load("ngap_get_params", 0);
@@ -320,5 +325,6 @@ class Web
 	private static var _set_encoding = Loader.load("ngap_set_encoding", 1);
 #if iphone
 	private static var _get_cwd = Loader.load("ngap_get_cwd", 0);
+	private static var _log = try Loader.load("ngap_log", 1) catch(e:Dynamic) null;
 #end
 }
