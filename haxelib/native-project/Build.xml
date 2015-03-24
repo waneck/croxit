@@ -15,7 +15,7 @@
 <set name="IOS_ARCH" value="-64" if="HXCPP_ARM64" />
 
 <set name="LIBEXTRA" value=".iphoneos${IOS_ARCH}" if="iphoneos"/>
-<set name="LIBEXTRA" value=".iphonesim" if="iphonesim"/>
+<set name="LIBEXTRA" value=".iphonesim${IOS_ARCH}" if="iphonesim"/>
 <set name="LIBPREFIX" value="lib" if="iphoneos"/>
 <set name="LIBPREFIX" value="lib" if="iphonesim"/>
 
@@ -36,7 +36,7 @@
 	<file name="native/iPhone/croxit_display.mm"/>
 </files>
 
-<target id="croxit" output="${LIBPREFIX}croxit${DBG}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
+<target id="croxit" output="${LIBPREFIX}croxit-1${DBG}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
   <ext value=".ndll" unless="mobile"/>
   <files id="ios_croxit" if="iphone"/>
   <outdir name="../ndll/${BINDIR}"/>
