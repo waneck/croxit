@@ -92,7 +92,7 @@ extern "C"
 		int len = val_strlen(str);
 		char *_new = (char *) (malloc(sizeof(char *) * (len + 1)));
 		memcpy(_new, _str, len);
-		_new[len] = NULL;
+		_new[len] = '\0';
 		
 		return _new;
 	}
@@ -577,6 +577,7 @@ extern "C" {
 		val_check(vmsg,string);
 		msg = val_string(vmsg);
 		NSLog(@"%s",msg);
+		return val_null;
 	}
 	DEFINE_PRIM(ngap_log, 1);
 	
@@ -640,7 +641,7 @@ extern "C" {
 			[web_view_controller loadHome];
 		} else {
 			val_check(home, string);
-			NSString *ns_home = [[NSString alloc] stringWithUTF8String:val_string(home)];
+			NSString *ns_home = [NSString stringWithUTF8String:val_string(home)];
 			
 			[web_view_controller loadWithPath:ns_home];
 		}
