@@ -36,7 +36,7 @@
 	<file name="native/iPhone/croxit_display.mm"/>
 </files>
 
-<target id="croxit" output="${LIBPREFIX}croxit-1${DBG}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
+<target id="croxit" output="${LIBPREFIX}croxit${DBG}${LIBEXTRA}" tool="linker" toolid="${STD_MODULE_LINK}">
   <ext value=".ndll" unless="mobile"/>
   <files id="ios_croxit" if="iphone"/>
   <outdir name="../ndll/${BINDIR}"/>
