@@ -5,7 +5,7 @@ import croxit.core.Errors;
 /**
  *  This is the main Croxit manager, and is used to manipulate the main WebView context.
  **/
-class Croxit 
+class Croxit
 {
 	public static var OrientationPortrait = 1;
 	public static var OrientationPortraitUpsideDown = 2;
@@ -18,13 +18,13 @@ class Croxit
 #else
 	public static var shouldRotateInterface(default, set_shouldRotateInterface):Int->Bool;
 #end
-	
+
 	private static function set_shouldRotateInterface(v:Int->Bool):Int->Bool
 	{
 		_set_should_rotate(v);
 		return shouldRotateInterface = v;
 	}
-	
+
 	/**
 	 *  Only initializes a webview, without setting a request handler nor a home page
 	 **/
@@ -32,16 +32,16 @@ class Croxit
 	{
 		_init();
 	}
-	
+
 	/**
 	 *  Initializes and starts with the home page passed as a parameter.
-	 *  The request handler is the main function to be called each time a request to a non-existing 
+	 *  The request handler is the main function to be called each time a request to a non-existing
 	 **/
 	public static function initAndStart(homePage:String, requestHandler:Void->Void):Void
 	{
 		_init_and_start(homePage, requestHandler);
 	}
-	
+
 	/**
 	 *  Starts the webview with the home page and request handler passed as paremeters
 	 **/
@@ -49,7 +49,7 @@ class Croxit
 	{
 		_start(homePage, requestHandler);
 	}
-	
+
 	/**
 	 *  Hides the main webview
 	 **/
@@ -57,7 +57,7 @@ class Croxit
 	{
 		_hide();
 	}
-	
+
 	/**
 	 *  Shows the main webview
 	 **/
@@ -65,7 +65,7 @@ class Croxit
 	{
 		_show();
 	}
-	
+
 	/**
 	 *  Closes the main webview
 	 **/
@@ -73,7 +73,7 @@ class Croxit
 	{
 		_close();
 	}
-	
+
 	/**
 	 *  Sets a handler for any webview-related errors
 	 **/
@@ -81,7 +81,7 @@ class Croxit
 	{
 		_setErrorHandler(function(num, msg) errorHandler(Type.createEnumIndex(Error, num), msg));
 	}
-	
+
 	/**
 	 *  Sets if the web view should allow external (non-local) addresses
 	 **/
@@ -89,7 +89,7 @@ class Croxit
 	{
 		_set_allow_external(v);
 	}
-	
+
 	/**
 	 *  Calls a JavaScript string inside the main webview.
 	 *  This is only guaranteed to work after the request is complete (e.g. inside an event / remoting handler)
@@ -98,7 +98,7 @@ class Croxit
 	{
 		return _call_js(js);
 	}
-	
+
 	/**
 	 *  For mobile devices, sets if the scroll should bounce
 	 **/
@@ -106,16 +106,16 @@ class Croxit
 	{
 		_set_bounces(val);
 	}
-	
-	private static var _set_bounces = Loader.load("ngap_set_bounces", 1);
-	private static var _show = Loader.load("ngap_show", 0);
-	private static var _hide = Loader.load("ngap_hide", 0);
-	private static var _init = Loader.load("ngap_init", 0);
-	private static var _set_should_rotate = Loader.load("ngap_set_should_autorotate", 1);
-	private static var _start = Loader.load("ngap_start", 2);
-	private static var _close = Loader.load("ngap_stop", 0);
-	private static var _setErrorHandler = Loader.load("ngap_set_error_handler", 1);
-	private static var _init_and_start = Loader.load("ngap_init_and_start", 2);
-	private static var _set_allow_external = Loader.load("ngap_set_allow_external", 1);
-	private static var _call_js = Loader.load("ngap_call_js", 1);
+
+	private static var _set_bounces = Loader.load("cx_set_bounces", 1);
+	private static var _show = Loader.load("cx_show", 0);
+	private static var _hide = Loader.load("cx_hide", 0);
+	private static var _init = Loader.load("cx_init", 0);
+	private static var _set_should_rotate = Loader.load("cx_set_should_autorotate", 1);
+	private static var _start = Loader.load("cx_start", 2);
+	private static var _close = Loader.load("cx_stop", 0);
+	private static var _setErrorHandler = Loader.load("cx_set_error_handler", 1);
+	private static var _init_and_start = Loader.load("cx_init_and_start", 2);
+	private static var _set_allow_external = Loader.load("cx_set_allow_external", 1);
+	private static var _call_js = Loader.load("cx_call_js", 1);
 }

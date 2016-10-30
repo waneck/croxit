@@ -31,7 +31,7 @@ class Info
 	public static function getWritablePathOrCopy(relativePath:String, ?info:Null<PathInfo>):String
 	{
 		if (info == null) info = AppData;
-		return _ngap_get_writable_path_or_write(relativePath, Type.enumIndex(info));
+		return _cx_get_writable_path_or_write(relativePath, Type.enumIndex(info));
 	}
 
 	/**
@@ -45,7 +45,7 @@ class Info
 			case AppDocument:
 				if (writableDocumentPath == null)
 				{
-					var p = _ngap_get_writable_path(0);
+					var p = _cx_get_writable_path(0);
 					// fix for jailbroken apps
 					if (!sys.FileSystem.exists(p))
 					{
@@ -59,7 +59,7 @@ class Info
 			case AppData:
 				if (writableDataPath == null)
 				{
-					var p = _ngap_get_writable_path(1);
+					var p = _cx_get_writable_path(1);
 					// fix for jailbroken apps
 					if (!sys.FileSystem.exists(p))
 					{
@@ -73,7 +73,7 @@ class Info
 			case TempCache:
 				if (writableCachePath == null)
 				{
-					var p = _ngap_get_writable_path(2);
+					var p = _cx_get_writable_path(2);
 					// fix for jailbroken apps
 					if (!sys.FileSystem.exists(p))
 					{
@@ -87,9 +87,9 @@ class Info
 		}
 	}
 
-	static var _ngap_get_writable_path = Loader.load("ngap_get_writable_path", 1);
-	static var _set_allow_external = Loader.load("ngap_set_allow_external", 1);
-	static var _ngap_get_writable_path_or_write = Loader.load("ngap_get_writable_path_or_copy", 2);
+	static var _cx_get_writable_path = Loader.load("cx_get_writable_path", 1);
+	static var _set_allow_external = Loader.load("cx_set_allow_external", 1);
+	static var _cx_get_writable_path_or_write = Loader.load("cx_get_writable_path_or_copy", 2);
 }
 
 enum PathInfo

@@ -314,17 +314,17 @@ class Web
 		//throw "NOT IMPLEMENTED";
 	}
 
-	private static var _cache_module = Loader.load("ngap_cache_module", 1);
-	private static var _get_method = Loader.load("ngap_method", 0);
-	private static var _get_params = Loader.load("ngap_get_params", 0);
-	private static var _post_params = Loader.load("ngap_post_params", 0);
-	private static var _get_uri = Loader.load("ngap_uri", 0);
-	private static var _redirect = Loader.load("ngap_redirect", 1);
-	private static var _print = Loader.load("ngap_print", 1);
-	private static var _set_mime = Loader.load("ngap_set_mime", 1);
-	private static var _set_encoding = Loader.load("ngap_set_encoding", 1);
+	private static var _cache_module = Loader.load("cx_cache_module", 1);
+	private static var _get_method = Loader.load("cx_method", 0);
+	private static var _get_params = Loader.load("cx_get_params", 0);
+	private static var _post_params = Loader.load("cx_post_params", 0);
+	private static var _get_uri = Loader.load("cx_uri", 0);
+	private static var _redirect = Loader.load("cx_redirect", 1);
+	private static var _print = Loader.load("cx_print", 1);
+	private static var _set_mime = Loader.load("cx_set_mime", 1);
+	private static var _set_encoding = Loader.load("cx_set_encoding", 1);
 #if iphone
-	private static var _get_cwd = Loader.load("ngap_get_cwd", 0);
-	private static var _log = try Loader.load("ngap_log", 1) catch(e:Dynamic) null;
+	private static var _get_cwd = Loader.load("cx_get_cwd", 0);
+	private static var _log = try Loader.load("cx_log", 1) catch(e:Dynamic) null;
 #end
 }

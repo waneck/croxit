@@ -4,8 +4,8 @@
   "license": "BSD",
   "tags": ["cross","utility","mobile","html5","server","neko","hxcpp"],
   "description": "Croxit is a library that enables Haxe-written HTML5/JS applications to run on a cross-platform, offline environment. It emulates the neko.Web API and allows client/server-style applications to run offline on a mobile or desktop device.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "releasenote": "Haxe 3.0 Release",
   "contributors": ["waneck"],
-	"classPath": "lib"
+  "classPath": "src"
 }

@@ -38,13 +38,13 @@ class Events
 
 	static function __init__() : Void
 	{
-		var setEvHandler = Loader.load("ngap_set_global_event_handler", 1);
+		var setEvHandler = Loader.load("cx_set_global_event_handler", 1);
 		if (setEvHandler == null)
 			trace("WARNING: No event handler found. Events will be ignored");
 		else
 		{
 			setEvHandler(dispatchEvent);
-			var setActivateHandler = Loader.load("ngap_set_activate_event_handler", 1);
+			var setActivateHandler = Loader.load("cx_set_activate_event_handler", 1);
 			if (setActivateHandler == null)
 				trace("WARNING: No activate handler found. Events might not work correctly");
 			else
