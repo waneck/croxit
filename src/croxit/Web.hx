@@ -1,7 +1,4 @@
 package croxit;
-#if haxe3
-import haxe.ds.StringMap in Hash;
-#end
 
 #if false
 import haxe.io.Bytes;
@@ -49,7 +46,7 @@ extern class Web
 	/**
 		Returns an hashtable of all Cookies sent by the client. Modifying the hashtable will not modify the cookie, use setCookie instead.
 	 */
-	public static function getCookies() : Hash<String>;
+	public static function getCookies() : Map<String, String>;
 
 	/**
 		Set a Cookie value in the HTTP headers. Same remark as setHeader. You may have to apply StringTools.urlEncode your value to prevent issues on retrieval.
@@ -80,7 +77,7 @@ extern class Web
 	/**
 		Returns the GET and POST parameters.
 	 */
-	public static function getParams() : Hash<String>;
+	public static function getParams() : Map<String, String>;
 
 	/**
 		Returns all the GET parameters String
@@ -112,7 +109,7 @@ extern class Web
 	/**
 		Get the multipart parameters as an hashtable. The data cannot exceed the maximum size specified. NOT IMPLEMENTED
 	 */
-	public static function getMultipart( maxSize : Int ) : Hash<String>;
+	public static function getMultipart( maxSize : Int ) : Map<String, String>;
 
 	/**
 		Tell the client to redirect to the given url.

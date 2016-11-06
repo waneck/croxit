@@ -1,8 +1,6 @@
 package croxit.system;
+import croxit.Web; // make sure the native project is imported
 import croxit.core.Loader;
-#if haxe3
-import haxe.ds.StringMap in Hash;
-#end
 
 /**
  *  Miscellaneous system information
@@ -19,7 +17,7 @@ class Info
 	 **/
 	public static function resetBrowser():Void
 	{
-		untyped Web.allCookies = new Hash();
+		untyped Web.allCookies = new Map();
 	}
 
 	/**

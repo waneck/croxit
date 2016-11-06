@@ -2,40 +2,36 @@ import croxit.Web;
 import sys.FileSystem;
 import croxit.Output;
 
-#if cpp
-import cpp.db.Sqlite;
-#else
 import sys.db.Sqlite;
-#end
 
 class Main
 {
-	
+
 	public static function main()
 	{
 		//for mobile, we need to request a writable location, since
 		//the assets folder is sometimes read-only
 		var basePath = #if cpp croxit.system.Info.getWritablePath(AppData) #else Web.getCwd() #end;
-		
+
 		var path = basePath + "/db.db3";
-		
+
 		var exists = FileSystem.exists(path);
 		var db = Sqlite.open(path);
-		
+
 		if (!exists)
 		{
 			//create the sqlite table
 			db.request("CREATE TABLE Visits ( name TEXT UNIQUE, nvisits INTEGER );");
 		}
-		
+
 		presentContent(db);
 	}
-	
+
 	private static function presentContent(db):Void
 	{
 		//get params if any data was submitted
 		var params = Web.getParams();
-		
+
 		var buf = new StringBuf();
 		//create form data
 		buf.add("<html><body>");
@@ -49,7 +45,7 @@ class Main
 			}
 		buf.add('" /> <br />');
 		buf.add('<input type="submit" value="Submit" /> <br />');
-		
+
 		//if name was entered
 		if (params.exists("uname"))
 		{
@@ -66,10 +62,10 @@ class Main
 				buf.add("You've visited here " + ++entry.nvisits + " times! </br>");
 			}
 		}
-		
+
 		buf.add("</form></body></html>");
-		
+
 		Output.print(buf);
 	}
-	
+
 }

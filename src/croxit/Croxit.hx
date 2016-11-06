@@ -1,4 +1,5 @@
 package croxit;
+import croxit.Web; // make sure the native project is imported
 import croxit.core.Loader;
 import croxit.core.Errors;
 

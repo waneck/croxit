@@ -3,10 +3,19 @@ import croxit.core.Loader;
 import croxit.utils.Path;
 import haxe.io.Bytes;
 
-#if haxe3
-import haxe.ds.StringMap in Hash;
+#if iphone
+@:sourceFile("./../../../../../native-project/native/iPhone/croxit.mm")
+extern class NativeProject {
+}
 #end
 
+@:cppFileCode('
+extern "C" { int croxit_register_prims(); }
+
+int do_register_croxit_prims() {
+  return croxit_register_prims();
+}
+')
 class Web
 {
 	/**
@@ -77,16 +86,16 @@ class Web
 		return "127.0.0.16";
 	}
 
-	private static var allCookies:Hash<Hash<String>> = new Hash();
+	private static var allCookies:Map<String, Map<String, String>> = new Map();
 
 	/**
 		Returns an hashtable of all Cookies sent by the client. Modifying the hashtable will not modify the cookie, use setCookie instead.
 	 */
-	public static function getCookies() : Hash<String>
+	public static function getCookies() : Map<String, String>
 	{
 
-		var ret = new Hash();
-		function add(h:Hash<String>)
+		var ret = new Map();
+		function add(h:Map<String, String>)
 		{
 			for (k in h.keys())
 			{
@@ -120,7 +129,7 @@ class Web
 		var cookies = allCookies.get(path);
 		if (cookies == null)
 		{
-			cookies = new Hash();
+			cookies = new Map();
 			allCookies.set(path, cookies);
 		}
 
@@ -188,9 +197,9 @@ class Web
 	/**
 		Returns the GET and POST parameters.
 	 */
-	public static function getParams() : Hash<String>
+	public static function getParams() : Map<String, String>
 	{
-		var params = new Hash();
+		var params = new Map();
 		for (v in getParamsString().split("&"))
 		{
 			var vals = v.split("=");
@@ -251,9 +260,13 @@ class Web
 		}
 	}
 
-	public static function print(str:String)
+	public static function print(str:Dynamic)
 	{
-		_print(str);
+		if (Std.is(str, StringBuf)) {
+			_print((str : StringBuf).toString());
+		} else {
+			_print(Std.string(str));
+		}
 	}
 
 	/**
@@ -269,7 +282,7 @@ class Web
 	/**
 		Get the multipart parameters as an hashtable. The data cannot exceed the maximum size specified. NOT IMPLEMENTED
 	 */
-	public static function getMultipart( maxSize : Int ) : Hash<String>
+	public static function getMultipart( maxSize : Int ) : Map<String, String>
 	{
 		throw "Not Implemented";
 		return null;
@@ -325,6 +338,6 @@ class Web
 	private static var _set_encoding = Loader.load("cx_set_encoding", 1);
 #if iphone
 	private static var _get_cwd = Loader.load("cx_get_cwd", 0);
-	private static var _log = try Loader.load("cx_log", 1) catch(e:Dynamic) null;
+	private static var _log = Loader.load("cx_log", 1);
 #end
 }
